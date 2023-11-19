@@ -24,10 +24,10 @@ namespace Product.Catalog.Service.Repositories
             return await dbCollection.Find(filterBuilder.Empty).ToListAsync();
         }
 
-        public async Task<Item> GetAsync(Guid id)
+        public async Task<Item> GetAsync(string Name)
         {
             // Retrieve a specific item by its ID from the MongoDB collection
-            FilterDefinition<Item> filter = filterBuilder.Eq(entity => entity.Id, id);
+            FilterDefinition<Item> filter = filterBuilder.Eq(entity => entity.Name, Name);
             return await dbCollection.Find(filter).FirstOrDefaultAsync();
         }
 

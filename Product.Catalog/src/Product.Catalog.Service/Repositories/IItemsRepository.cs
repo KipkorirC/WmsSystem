@@ -11,7 +11,7 @@ namespace Product.Catalog.Service.Repositories
         Task<IReadOnlyCollection<Item>> GetAllAsync();
 
         // Retrieve a specific item by its ID asynchronously
-        Task<Item> GetAsync(Guid id);
+        Task<Item> GetAsync(string Name);
 
         // Create a new item asynchronously
         Task CreateAsync(Item entity);

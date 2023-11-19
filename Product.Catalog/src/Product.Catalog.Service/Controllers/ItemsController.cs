@@ -31,11 +31,11 @@ namespace Product.Catalog.Service.Controllers
         }
 
         // GET: items/{id}
-        [HttpGet("{id}")]
-        public async Task<ActionResult<ItemDto>> GetByIdAsync(Guid id)
+        [HttpGet("{Name}")]
+        public async Task<ActionResult<ItemDto>> GetByNameAsync(string Name)
         {
             // Retrieve a specific item by its ID from the repository
-            var item = await itemsRepository.GetAsync(id);
+            var item = await itemsRepository.GetAsync(Name);
 
             if (item == null)
             {
@@ -61,15 +61,15 @@ namespace Product.Catalog.Service.Controllers
             await itemsRepository.CreateAsync(item); // Add the new item to the repository
 
             // Return the created item's ID and the location to retrieve it
-            return CreatedAtAction(nameof(GetByIdAsync), new { id = item.Id }, item);
+            return CreatedAtAction(nameof(GetByNameAsync), new { Name = item.Name }, item);
         }
 
         // PUT: items/{id}
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutAsync(Guid id, UpdateItemDto updateItemDto)
+        [HttpPut("{Name}")]
+        public async Task<IActionResult> PutAsync(string Name, UpdateItemDto updateItemDto)
         {
             // Retrieve the existing item from the repository based on the ID
-            var existingItem = await itemsRepository.GetAsync(id);
+            var existingItem = await itemsRepository.GetAsync(Name);
 
             if (existingItem == null)
             {
@@ -87,11 +87,11 @@ namespace Product.Catalog.Service.Controllers
         }
 
         // DELETE: items/{id}
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteAsync(Guid id)
+        [HttpDelete("{Name}")]
+        public async Task<IActionResult> DeleteAsync(string Name)
         {
             // Retrieve the item from the repository based on the ID
-            var Item = await itemsRepository.GetAsync(id);
+            var Item = await itemsRepository.GetAsync(Name);
 
             if (Item == null)
             {
