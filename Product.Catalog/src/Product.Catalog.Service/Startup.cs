@@ -35,27 +35,12 @@ namespace Product.Catalog.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Register custom BSON serializers for Guid and DateTimeOffset
-            BsonSerializer.RegisterSerializer(new GuidSerializer(BsonType.String));
-            BsonSerializer.RegisterSerializer(new DateTimeOffsetSerializer(BsonType.String));
-            
             // Retrieve service settings from configuration
             serviceSettings = Configuration.GetSection(nameof(ServiceSettings)).Get<ServiceSettings>();
+            services.AddMongo()
+                    .AddMongoRepository<Item>("Items");
 
             // Configure MongoDB connection and database access
-            services.AddSingleton(ServiceProvider =>{
-                var mongoDbSettings = Configuration.GetSection(nameof(MongoDbSettings)).Get<MongoDbSettings>();
-                var mongoClient = new MongoClient(mongoDbSettings.ConnectionString);
-                return mongoClient.GetDatabase(serviceSettings.ServiceName);
-            });
-
-            // Register the ItemsRepository as a singleton service
-            services.AddSingleton<IRepository<Item>>(serviceProvider =>
-            {
-                var database = serviceProvider.GetService<IMongoDatabase>();
-                return new MongoRepository<Item>(database,"items");
-            }
-            );
 
             services.AddControllers(options =>
             {
