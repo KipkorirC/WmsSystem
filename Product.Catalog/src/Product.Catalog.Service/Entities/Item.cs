@@ -2,10 +2,8 @@ using System;
 
 namespace Product.Catalog.Service.Entities
 {
-    public class Item
+    public class Item : IEntity
     {
-        internal int Quantity;
-
         // Properties of the Item entity
         public Guid Id { get; set; }            // Unique identifier for the item
         public string Name { get; set; }        // Name of the item

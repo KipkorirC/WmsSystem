@@ -4,8 +4,8 @@
     "\\Product.Catalog",
     "\\Product.Catalog\\src",
     "\\Product.Catalog\\src\\Product.Catalog.Service",
-    "\\Product.Catalog\\src\\Product.Catalog.Service\\Entities"
+    "\\Product.Catalog\\src\\Product.Catalog.Service\\Repositories"
   ],
-  "SelectedNode": "\\Product.Catalog\\src\\Product.Catalog.Service\\Entities\\Item.cs",
+  "SelectedNode": "\\Product.Catalog\\src\\Product.Catalog.Service\\Repositories\\ItemsRepository.cs",
   "PreviewInSolutionExplorer": false
 }

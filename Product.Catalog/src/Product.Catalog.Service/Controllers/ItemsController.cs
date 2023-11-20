@@ -14,9 +14,9 @@ namespace Product.Catalog.Service.Controllers
     [Route("items")]
     public class ItemsController : ControllerBase
     {
-        private readonly IItemsRepository itemsRepository;
+        private readonly IRepository<Item> itemsRepository;
 
-        public ItemsController(IItemsRepository itemsRepository)
+        public ItemsController(IRepository<Item> itemsRepository)
         {
             this.itemsRepository = itemsRepository;
         }
@@ -31,11 +31,11 @@ namespace Product.Catalog.Service.Controllers
         }
 
         // GET: items/{id}
-        [HttpGet("{Name}")]
-        public async Task<ActionResult<ItemDto>> GetByNameAsync(string Name)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ItemDto>> GetByIdAsync(Guid id)
         {
             // Retrieve a specific item by its ID from the repository
-            var item = await itemsRepository.GetAsync(Name);
+            var item = await itemsRepository.GetAsync(id);
 
             if (item == null)
             {
@@ -61,15 +61,15 @@ namespace Product.Catalog.Service.Controllers
             await itemsRepository.CreateAsync(item); // Add the new item to the repository
 
             // Return the created item's ID and the location to retrieve it
-            return CreatedAtAction(nameof(GetByNameAsync), new { Name = item.Name }, item);
+            return CreatedAtAction(nameof(GetByIdAsync), new { id = item.Id }, item);
         }
 
         // PUT: items/{id}
-        [HttpPut("{Name}")]
-        public async Task<IActionResult> PutAsync(string Name, UpdateItemDto updateItemDto)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAsync(Guid id, UpdateItemDto updateItemDto)
         {
             // Retrieve the existing item from the repository based on the ID
-            var existingItem = await itemsRepository.GetAsync(Name);
+            var existingItem = await itemsRepository.GetAsync(id);
 
             if (existingItem == null)
             {
@@ -87,11 +87,11 @@ namespace Product.Catalog.Service.Controllers
         }
 
         // DELETE: items/{id}
-        [HttpDelete("{Name}")]
-        public async Task<IActionResult> DeleteAsync(string Name)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(Guid id)
         {
             // Retrieve the item from the repository based on the ID
-            var Item = await itemsRepository.GetAsync(Name);
+            var Item = await itemsRepository.GetAsync(id);
 
             if (Item == null)
             {

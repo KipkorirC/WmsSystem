@@ -5,19 +5,19 @@ using Product.Catalog.Service.Entities;
 
 namespace Product.Catalog.Service.Repositories
 {
-    public interface IItemsRepository
+    public interface IRepository<T> where T:IEntity
     {
         // Retrieve all items asynchronously
-        Task<IReadOnlyCollection<Item>> GetAllAsync();
+        Task<IReadOnlyCollection<T>> GetAllAsync();
 
         // Retrieve a specific item by its ID asynchronously
-        Task<Item> GetAsync(string Name);
+        Task<Item> GetAsync(Guid id);
 
         // Create a new item asynchronously
-        Task CreateAsync(Item entity);
+        Task CreateAsync(T entity);
 
         // Update an existing item asynchronously
-        Task UpdateAsync(Item entity);
+        Task UpdateAsync(T entity);
 
         // Remove an item by its ID asynchronously
         Task RemoveAsync(Guid id);

@@ -15,6 +15,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Driver;
+using Product.Catalog.Service.Entities;
 using Product.Catalog.Service.Repositories;
 using Product.Catalog.Service.Settings;
 
@@ -49,7 +50,12 @@ namespace Product.Catalog.Service
             });
 
             // Register the ItemsRepository as a singleton service
-            services.AddSingleton<IItemsRepository,ItemsRepository>();
+            services.AddSingleton<IRepository<Item>>(serviceProvider =>
+            {
+                var database = serviceProvider.GetService<IMongoDatabase>();
+                return new MongoRepository<Item>(database,"items");
+            }
+            );
 
             services.AddControllers(options =>
             {

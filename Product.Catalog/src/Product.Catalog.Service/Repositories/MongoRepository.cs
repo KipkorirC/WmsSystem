@@ -6,32 +6,31 @@ using Product.Catalog.Service.Entities;
 
 namespace Product.Catalog.Service.Repositories
 {
-    public class ItemsRepository : IItemsRepository
+    public class MongoRepository<T> : IRepository<T> where T:IEntity
     {
-        private const string collectionName = "items";
-        private readonly IMongoCollection<Item> dbCollection;
-        private readonly FilterDefinitionBuilder<Item> filterBuilder = Builders<Item>.Filter;
+        private readonly IMongoCollection<T> dbCollection;
+        private readonly FilterDefinitionBuilder<T> filterBuilder = Builders<T>.Filter;
 
-        public ItemsRepository(IMongoDatabase database)
+        public MongoRepository(IMongoDatabase database,string collectionName)
         {
             // Initialize MongoDB collection for items
-            dbCollection = database.GetCollection<Item>(collectionName);
+            dbCollection = database.GetCollection<T>(collectionName);
         }
 
-        public async Task<IReadOnlyCollection<Item>> GetAllAsync()
+        public async Task<IReadOnlyCollection<T>> GetAllAsync()
         {
             // Retrieve all items from the MongoDB collection
             return await dbCollection.Find(filterBuilder.Empty).ToListAsync();
         }
 
-        public async Task<Item> GetAsync(string Name)
+        public async Task<T> GetAsync(Guid id)
         {
             // Retrieve a specific item by its ID from the MongoDB collection
-            FilterDefinition<Item> filter = filterBuilder.Eq(entity => entity.Name, Name);
+            FilterDefinition<T> filter = filterBuilder.Eq(entity => entity.Id, id);
             return await dbCollection.Find(filter).FirstOrDefaultAsync();
         }
 
-        public async Task CreateAsync(Item entity)
+        public async Task CreateAsync(T entity)
         {
             // Create a new item in the MongoDB collection
             if (entity == null)
@@ -41,22 +40,27 @@ namespace Product.Catalog.Service.Repositories
             await dbCollection.InsertOneAsync(entity);
         }
 
-        public async Task UpdateAsync(Item entity)
+        public async Task UpdateAsync(T entity)
         {
             // Update an existing item in the MongoDB collection
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity));
             }
-            FilterDefinition<Item> filter = filterBuilder.Eq(existingEntity => existingEntity.Id, entity.Id);
+            FilterDefinition<T> filter = filterBuilder.Eq(existingEntity => existingEntity.Id, entity.Id);
             await dbCollection.ReplaceOneAsync(filter, entity);
         }
 
         public async Task RemoveAsync(Guid id)
         {
             // Remove an item from the MongoDB collection by its ID
-            FilterDefinition<Item> filter = filterBuilder.Eq(entity => entity.Id, id);
+            FilterDefinition<T> filter = filterBuilder.Eq(entity => entity.Id, id);
             await dbCollection.DeleteOneAsync(filter);
+        }
+
+        Task<Item> IRepository<T>.GetAsync(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
