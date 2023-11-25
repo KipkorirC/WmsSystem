@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\Product.Inventory.Service",
+    "\\src\\Product.Inventory.Service\\Entities"
+  ],
+  "SelectedNode": "\\src\\Product.Inventory.Service\\Entities\\InventoryItem.cs",
+  "PreviewInSolutionExplorer": false
+}
