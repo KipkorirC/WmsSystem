@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Product.Catalog.Service.Repositories;
+using Product.Inventory.Service.Clients;
 using Product.Inventory.Service.Entities;
 
 namespace Product.Inventory.Service
@@ -30,7 +32,11 @@ namespace Product.Inventory.Service
         {
             services.AddMongo()
                     .AddMongoRepository<InventoryItem>("inventoryitems");
-
+            services.AddHttpClient<CatalogClient>(client=>
+            {
+                client.BaseAddress = new Uri("https://localhost:5001");
+            }
+            );
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

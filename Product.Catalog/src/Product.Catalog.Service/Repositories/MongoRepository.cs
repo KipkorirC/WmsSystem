@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using Product.Catalog.Service.Entities;
@@ -58,9 +59,25 @@ namespace Product.Catalog.Service.Repositories
             await dbCollection.DeleteOneAsync(filter);
         }
 
-        Task<Item> IRepository<T>.GetAsync(Guid id)
+        Task<T> IRepository<T>.GetAsync(Guid id)
         {
             throw new NotImplementedException();
         }
+
+        public Task DeleteAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IReadOnlyCollection<T>> GetAllAsync(Expression<Func<T, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<T> GetAsync(Expression<Func<T, bool>> filter)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
