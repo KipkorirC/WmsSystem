@@ -52,3 +52,11 @@ C:\Users\cmt\Desktop\Projects\final_project\Product.Inventory\src\Product.Invent
 C:\Users\cmt\Desktop\Projects\final_project\Product.Inventory\src\Product.Inventory.Service\obj\Debug\net5.0\Product.Inventory.Service.pdb
 C:\Users\cmt\Desktop\Projects\final_project\Product.Inventory\src\Product.Inventory.Service\obj\Debug\net5.0\Product.Inventory.Service.genruntimeconfig.cache
 C:\Users\cmt\Desktop\Projects\final_project\Product.Inventory\src\Product.Inventory.Service\obj\Debug\net5.0\ref\Product.Inventory.Service.dll
+C:\Users\cmt\Desktop\Projects\final_project\Product.Inventory\src\Product.Inventory.Service\bin\Debug\net5.0\Microsoft.Extensions.Http.dll
+C:\Users\cmt\Desktop\Projects\final_project\Product.Inventory\src\Product.Inventory.Service\bin\Debug\net5.0\Microsoft.Extensions.Http.Polly.dll
+C:\Users\cmt\Desktop\Projects\final_project\Product.Inventory\src\Product.Inventory.Service\bin\Debug\net5.0\Microsoft.Extensions.Logging.dll
+C:\Users\cmt\Desktop\Projects\final_project\Product.Inventory\src\Product.Inventory.Service\bin\Debug\net5.0\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\cmt\Desktop\Projects\final_project\Product.Inventory\src\Product.Inventory.Service\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+C:\Users\cmt\Desktop\Projects\final_project\Product.Inventory\src\Product.Inventory.Service\bin\Debug\net5.0\Polly.dll
+C:\Users\cmt\Desktop\Projects\final_project\Product.Inventory\src\Product.Inventory.Service\bin\Debug\net5.0\Polly.Extensions.Http.dll
+C:\Users\cmt\Desktop\Projects\final_project\Product.Inventory\src\Product.Inventory.Service\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll

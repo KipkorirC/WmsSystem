@@ -15,7 +15,8 @@ namespace Product.Catalog.Service.Controllers
     public class ItemsController : ControllerBase
     {
         private readonly IRepository<Item> itemsRepository;
-        
+
+        private static int requestCounter = 0;
         public ItemsController(IRepository<Item> itemsRepository)
         {
             this.itemsRepository = itemsRepository;
@@ -23,11 +24,26 @@ namespace Product.Catalog.Service.Controllers
 
         // GET: items
         [HttpGet]
-        public async Task<IEnumerable<ItemDto>> GetAsync()
+        public async Task<ActionResult<IEnumerable<ItemDto>>> GetAsync()
         {
+
+            requestCounter++;
+            Console.WriteLine($"Request {requestCounter}; starting...");
+
+            if(requestCounter <=2)
+            {
+                Console.WriteLine($"Request  {requestCounter}; Delaying .... ");
+                await Task.Delay(TimeSpan.FromSeconds(10));
+            }
+            if(requestCounter <=4)
+            {
+                Console.WriteLine($"Request  {requestCounter}; 500 (internal Server Error). ");
+                return StatusCode(500);
+            }
             // Retrieve all items from the repository and convert them to DTOs
             var Items = (await itemsRepository.GetAllAsync()).Select(item => item.AsDto());
-            return Items;
+            Console.WriteLine($"Request  {requestCounter}; 200 (ok). ");
+            return Ok(Items);
         }
 
         // GET: items/{id}
